@@ -1,4 +1,4 @@
-status: decided: Ghostscript wasm (@okathira/ghostpdl-wasm)
+status: decided: Ghostscript wasm (@okathira/ghostpdl-wasm) for compression; MuPDF.js (mupdf) for page count and scanned vs text detection
 
 # pdf-compression — library options
 researched: 2026-10-22   for: FileSense v1 (browser-local PDF compression, page count, scanned vs text)   status: open

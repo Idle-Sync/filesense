@@ -61,6 +61,16 @@ docs_in_git: yes
 `yes` commits `docs/` so everyone shares the research and session notes. `no` adds `docs/` to
 `.gitignore` so they stay local to this machine. Asked once, the first time docs are turned on.
 
+## Ignore rules
+
+ignore_in: gitignore
+
+Where idleflow writes its own ignore rules (`.claude/runs/`, a local `docs/`). `exclude` uses
+`.git/info/exclude`: local to this clone, so nothing about idleflow appears in a committed file.
+`gitignore` uses `.gitignore`: shared with every clone and visible to everyone who reads the repo.
+A stack's own entries (`node_modules/`, `.venv/`, `dist/`, `.env`) always go in `.gitignore`,
+because every clone needs them.
+
 ## Pushback
 
 Agents question a decision when the evidence says it is wrong: the conflict in one sentence,
@@ -99,3 +109,6 @@ listed too so they are not proposed again.
 - [L4] file saving and naming: hand-written (showSaveFilePicker on Chromium with anchor-download fallback, OPFS for the temporary file, `_2`/`_3` naming checked against session names; no library covers it; research: docs/research/file-saving-and-naming.md)
 - [L5] background processing: hand-written plain Worker + postMessage protocol with cancellation via an engine flag or terminate() (no dependency; research: docs/research/background-processing.md)
 - [L6] zero-upload guarantee: hand-written CSP connect-src header in vercel.json plus a Playwright no-request assertion on the built site (no library covers it; research: docs/research/zero-upload-guarantee.md)
+- [L7] PDF page count and scanned vs text detection: MuPDF.js (mupdf, AGPL, 14.3 MB; page count and text extraction from one library; loaded only when a PDF is opened; its size and load time are measured in the risk spike; research: docs/research/pdf-compression.md)
+- [L8] spike measurement harness: hand-written (Node zlib + curl on the preview for wire size, Playwright timing for load, CDP heap on Chromium, OS monitor reading by hand on Firefox and WebKit; no new dependency; research: docs/research/spike-measurement.md)
+- [L9] synthetic corpus PDFs: fpdf2 in a Python venv used only by the corpus generator, never shipped (LGPL, maintained; research: docs/research/corpus-pdf-generation.md)
