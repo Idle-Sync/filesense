@@ -2,6 +2,7 @@ import { resolve } from "node:path";
 import { defineConfig } from "vite";
 
 export default defineConfig({
+  // Module workers, the format the jSquash issue #19 production build needed; Vite's default "iife" also passes for @jsquash/jpeg alone, see docs/research/spike-2026-11/b-jsquash-worker.md.
   worker: { format: "es" },
   build: {
     target: "esnext",
