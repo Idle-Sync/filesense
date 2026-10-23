@@ -12,7 +12,7 @@ Page `packages/spike/pages/jpeg-worker/`: `main.ts` creates `new Worker(new URL(
 
 ## Measurements
 
-Headless Playwright, production build, one fresh worker per run, so the decode time includes compiling the decoder wasm and the encode time includes compiling the encoder wasm.
+Headless Playwright with 5 test workers running in parallel (timings are indicative, not isolated), production build, one fresh worker per run, so the decode time includes compiling the decoder wasm and the encode time includes compiling the encoder wasm.
 
 | browser | file | setting | number | unit |
 |---|---|---|---|---|
