@@ -1,0 +1,16 @@
+{
+  "name": "filesense",
+  "private": true,
+  "license": "AGPL-3.0-or-later",
+  "scripts": {
+    "build:engine": "wasm-pack build crates/engine --target web",
+    "test:engine": "cargo test && wasm-pack test --node crates/engine",
+    "spike:build": "pnpm --filter spike build",
+    "spike:preview": "pnpm --filter spike preview --port 4173",
+    "spike:test": "pnpm --filter spike test",
+    "corpus:generate": "python tests/corpus/generator/generate.py",
+    "corpus:verify": "node tests/corpus/verify.mjs",
+    "preview:check": "node tools/preview-check.mjs",
+    "deploy:preview": "vercel deploy --yes"
+  }
+}
