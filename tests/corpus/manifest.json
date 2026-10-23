@@ -1,0 +1,79 @@
+[
+  {
+    "path": "photo.jpg",
+    "kind": "photo",
+    "generator": "pillow",
+    "bytes": 407254,
+    "sha256": "48f2921a36e784767dbc3736c92817c4c9bd6f58108b4f78305ea5d7a7551b1d",
+    "width": 1600,
+    "height": 1200,
+    "committed": true
+  },
+  {
+    "path": "screenshot.png",
+    "kind": "screenshot",
+    "generator": "pillow",
+    "bytes": 38209,
+    "sha256": "90d7aa267bc4a068e28333c8e5e970b594c375295dde66c3b46b1e62b3622b1d",
+    "width": 1280,
+    "height": 800,
+    "committed": true
+  },
+  {
+    "path": "transparent.png",
+    "kind": "transparent_png",
+    "generator": "pillow",
+    "bytes": 4078,
+    "sha256": "5576f29392677089dab3fec944dff06d19df0ac39e732f20b584fc34391adac9",
+    "width": 800,
+    "height": 600,
+    "committed": true
+  },
+  {
+    "path": "photo.heic",
+    "kind": "heic",
+    "generator": "sips",
+    "bytes": 691392,
+    "sha256": "510677d3f3ba5ef93549a81dde85b1a4dca2914c9e8c2fbf47ce4161b766ab91",
+    "width": 1600,
+    "height": 1200,
+    "committed": true
+  },
+  {
+    "path": "text.pdf",
+    "kind": "text_pdf",
+    "generator": "fpdf2",
+    "bytes": 20684,
+    "sha256": "9b4a765dfe2cb2edd159506cbfd95d719a9122c165a0d7e1692a0a9eaaba33f2",
+    "pages": 3,
+    "committed": true
+  },
+  {
+    "path": "scanned.pdf",
+    "kind": "scanned_pdf",
+    "generator": "fpdf2",
+    "bytes": 1518434,
+    "sha256": "fe5e7447dd57abd40be1d627908d71a199fc5c42f41ef55c09a912091ab530ab",
+    "pages": 3,
+    "committed": true
+  },
+  {
+    "path": "already_compressed.jpg",
+    "kind": "already_compressed",
+    "generator": "pillow",
+    "bytes": 18356,
+    "sha256": "013ce6fb53856400a438220c37d84654b32dc63217a515c7b3928459bb647401",
+    "width": 800,
+    "height": 600,
+    "committed": true
+  },
+  {
+    "path": "already_compressed.pdf",
+    "kind": "already_compressed",
+    "generator": "fpdf2",
+    "bytes": 19472,
+    "sha256": "e9e41ba8716a75abbafbc38044c6113ac5c5e4804ca19d6b12836ef19aa2fe10",
+    "pages": 1,
+    "committed": true
+  }
+]
