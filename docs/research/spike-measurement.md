@@ -10,6 +10,7 @@ Nothing yet (no `package.json`). Playwright 1.64.1 is available through npx on t
 
 ## Options
 ### Node stdlib `node:zlib` brotli/gzip plus `curl` against the preview deploy
+Wire size is read by `tools/preview-check.mjs` with `node:https` (`node:http` for `http:` URLs), not `curl`, so the same script runs on the Windows machine.
 what: compress the built `.wasm` with `brotliCompressSync` / `gzipSync` for an estimate, and read `content-length` and `content-encoding` from the Vercel preview with `curl -sI -H 'accept-encoding: br'` for the real wire size.
 install: none (Node stdlib)   source: https://nodejs.org/api/zlib.html
 maintained: yes — ships with Node   source: https://nodejs.org/api/zlib.html

@@ -230,8 +230,9 @@ iPhone, text PDFs, scanned PDFs, already-compressed files (brief §7, compressio
 ## Milestones
 
 0. Risk spike — ends 2026-11-05. Exit: `docs/research/spike-2026-11.md` records a
-   go/no-go with measurements for each risk: (a) Rust toolchain and wasm-pack installed on the
-   Windows 10 machine and a hello-world engine built to wasm32; (b) jSquash JPEG encode runs
+   go/no-go with measurements for each risk: (a) Rust toolchain and wasm-pack installed and a
+   hello-world engine built to wasm32, measured on the development Mac, with the Windows 10
+   install left as a pending human check in the spike doc; (b) jSquash JPEG encode runs
    inside a Vite-built Web Worker on Chromium, Firefox and WebKit, with the nested-worker
    issue avoided or worked around and the workaround named; (c) Ghostscript wasm bundle size
    on disk and over the wire, load time, memory and seconds per page for one text PDF and one
@@ -239,8 +240,8 @@ iPhone, text PDFs, scanned PDFs, already-compressed files (brief §7, compressio
    `showSaveFilePicker` behaviour on Chromium and the anchor fallback on Firefox and WebKit,
    including what each browser does on a name collision; (e) a Vercel preview deploy serves
    `.wasm` with `application/wasm` and the CSP headers from `vercel.json`; (f) the largest
-   image and PDF processed within 60 seconds on the development machine, which become the
-   documented limits. The corpus is assembled under `tests/corpus/` with a manifest. A no-go
+   image and PDF processed within 60 seconds on the development Mac, measured now, which become
+   the documented limits; the Windows 10 run is a pending human check in the spike doc. The corpus is assembled under `tests/corpus/` with a manifest. A no-go
    on (b) or (c) stops the run and goes to the human.
 1. Vertical slice — ends 2026-11-26. One workflow end to end in the browser: open a JPEG,
    choose a target size, see the exact filename preview, run in a worker through the Rust
