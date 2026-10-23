@@ -24,3 +24,6 @@ playwright-report/
 # OS and editors
 .DS_Store
 Thumbs.db
+
+# Rust build output
+pkg/

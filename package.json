@@ -1,0 +1,12 @@
+{
+  "name": "filesense",
+  "private": true,
+  "license": "AGPL-3.0-or-later",
+  "scripts": {
+    "build:engine": "wasm-pack build crates/engine --target web",
+    "test:engine": "cargo test && wasm-pack test --node crates/engine",
+    "spike:build": "pnpm --filter spike build",
+    "spike:preview": "pnpm --filter spike preview --port 4173",
+    "spike:test": "pnpm --filter spike test"
+  }
+}

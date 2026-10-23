@@ -1,0 +1,19 @@
+import { resolve } from "node:path";
+import { defineConfig } from "vite";
+
+export default defineConfig({
+  worker: { format: "es" },
+  build: {
+    target: "esnext",
+    rollupOptions: {
+      input: {
+        "pages/jpeg-worker": resolve(import.meta.dirname, "pages/jpeg-worker/index.html"),
+        "pages/pdf": resolve(import.meta.dirname, "pages/pdf/index.html"),
+        "pages/save": resolve(import.meta.dirname, "pages/save/index.html"),
+      },
+    },
+  },
+  optimizeDeps: {
+    exclude: ["@jsquash/jpeg", "@okathira/ghostpdl-wasm", "mupdf"],
+  },
+});
