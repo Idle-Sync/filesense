@@ -12,8 +12,8 @@ Development runs through Claude Code with the idleflow plugin. On a fresh machin
 
 1. Clone: `git clone https://github.com/Idle-Sync/filesense.git`
 2. Install Claude Code, then the plugin: `claude plugin install idleflow --marketplace Idle-Sync/idleflow` (older Claude Code: `claude plugin marketplace add Idle-Sync/idleflow` then `claude plugin install idleflow@idlesync`). Optional: `claude plugin install rust-analyzer-lsp@claude-plugins-official`.
-3. Toolchain: Node 22 and pnpm 10; Rust via rustup with `rustup target add wasm32-unknown-unknown` and `cargo install wasm-pack`; `gh` logged in to GitHub; the Vercel CLI (`npm i -g vercel`) logged in.
+3. Toolchain: Node 22 or later and pnpm 9 or later; Rust via rustup with `rustup target add wasm32-unknown-unknown` and `cargo install wasm-pack`; `gh` logged in to GitHub; the Vercel CLI (`npm i -g vercel`) logged in.
 4. Open Claude Code in the repo. Every session starts by reading `CLAUDE.md`, `progress.md` and the newest `docs/sessions/` note.
-5. Next piece of work: `/idleflow:feature "Milestone 0: Risk spike"` (milestones are in `prd.md`).
+5. Next piece of work: the next milestone in `prd.md` not yet recorded as done in `progress.md`, started with `/idleflow:feature "<milestone>"`.
 
-Licence: AGPL-3.0-or-later (the `LICENSE` file lands with milestone 0).
+Licence: AGPL-3.0-or-later, see `LICENSE`.
