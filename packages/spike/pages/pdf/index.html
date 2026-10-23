@@ -5,8 +5,25 @@
     <title>spike: pdf</title>
   </head>
   <body>
-    <input type="file" id="file" />
+    <input type="file" id="file" accept="application/pdf" />
+    <label>
+      Tool
+      <select id="tool">
+        <option value="ghostscript">Ghostscript (compress)</option>
+        <option value="mupdf">MuPDF (page count and text)</option>
+      </select>
+    </label>
+    <label>
+      Ghostscript setting
+      <select id="setting">
+        <option value="/screen">/screen</option>
+        <option value="/ebook" selected>/ebook</option>
+        <option value="/printer">/printer</option>
+      </select>
+    </label>
     <button id="run">Run</button>
+    <a id="download" hidden>Download output</a>
     <pre id="result"></pre>
+    <script type="module" src="./main.ts"></script>
   </body>
 </html>
