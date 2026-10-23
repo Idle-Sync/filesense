@@ -1,4 +1,4 @@
-import { readFileSync, mkdirSync, existsSync, writeFileSync } from "node:fs";
+import { appendFileSync, mkdirSync, readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { brotliCompressSync, gzipSync } from "node:zlib";
@@ -25,36 +25,49 @@ export function gzipBytes(path: string): number {
 }
 
 export async function chromiumHeapBytes(page: Page): Promise<number> {
-  const browser = page.context().browser();
-  const browserName = browser?.browserType().name();
+  const browserName = page.context().browser()?.browserType().name() ?? "unknown browser";
   if (browserName !== "chromium") {
     throw new Error(`heap size is not available on ${browserName}`);
   }
   const session = await page.context().newCDPSession(page);
-  await session.send("Performance.enable");
-  const { metrics } = await session.send("Performance.getMetrics");
-  const heap = metrics.find((metric) => metric.name === "JSHeapUsedSize");
-  if (!heap) {
-    throw new Error("Performance.getMetrics returned no JSHeapUsedSize");
+  try {
+    await session.send("Performance.enable");
+    const { metrics } = await session.send("Performance.getMetrics");
+    const heap = metrics.find((metric) => metric.name === "JSHeapUsedSize");
+    if (!heap) {
+      throw new Error("Performance.getMetrics returned no JSHeapUsedSize");
+    }
+    return heap.value;
+  } finally {
+    await session.detach();
   }
-  return heap.value;
 }
 
 export async function readResult(page: Page): Promise<Record<string, unknown>> {
-  const result = page.locator("#result");
   await page.waitForFunction(() => document.querySelector("#result")?.textContent?.trim() !== "");
-  const parsed = JSON.parse((await result.textContent()) ?? "");
-  if ("error" in parsed) {
-    throw new Error(`page reported an error: ${parsed.error}`);
+  const text = (await page.locator("#result").textContent()) ?? "";
+  let parsed: unknown;
+  try {
+    parsed = JSON.parse(text);
+  } catch (error) {
+    throw new Error(`#result is not JSON: ${text}`, { cause: error });
   }
-  return parsed;
+  if (typeof parsed !== "object" || parsed === null || Array.isArray(parsed)) {
+    throw new Error(`#result is not a JSON object: ${text}`);
+  }
+  const result = parsed as Record<string, unknown>;
+  if ("error" in result) {
+    throw new Error(`page reported an error: ${result.error}`);
+  }
+  return result;
 }
 
-// Appends so repeated runs and several projects keep every measurement.
+/**
+ * Appends `data` as one JSON line to `packages/spike/test-results/<name>.json`.
+ * The file is JSON Lines, not one JSON array: read it by splitting on newlines and parsing each line.
+ * One small append per row lets parallel Playwright workers write the same file without losing rows.
+ */
 export function writeMeasurement(name: string, data: unknown): void {
   mkdirSync(measurementsDir, { recursive: true });
-  const path = resolve(measurementsDir, `${name}.json`);
-  const existing = existsSync(path) ? JSON.parse(readFileSync(path, "utf8")) : [];
-  existing.push(data);
-  writeFileSync(path, JSON.stringify(existing, null, 2));
+  appendFileSync(resolve(measurementsDir, `${name}.json`), JSON.stringify(data) + "\n");
 }

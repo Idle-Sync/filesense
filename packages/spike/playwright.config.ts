@@ -6,6 +6,8 @@ const baseURL = externalBaseUrl ?? `http://localhost:${port}`;
 
 export default defineConfig({
   testDir: "tests",
+  // Playwright empties outputDir on every run; test-results/ holds writeMeasurement files and must survive.
+  outputDir: "playwright-artifacts",
   timeout: 180_000,
   use: { baseURL },
   projects: [

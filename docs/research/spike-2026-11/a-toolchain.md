@@ -18,10 +18,10 @@
 
 ## Measurements
 
-| Measure | Value | Unit |
-|---|---|---|
-| `cargo install wasm-pack` wall time (warm cargo registry cache) | 46 | seconds |
-| `crates/engine/pkg/engine_bg.wasm` (hello world, debug-free release build) | 13720 | bytes |
+| browser | file | setting | number | unit |
+|---|---|---|---|---|
+| n/a | `cargo install wasm-pack` wall time | macOS arm64, warm cargo registry cache | 46 | seconds |
+| n/a | `crates/engine/pkg/engine_bg.wasm` (hello world, release build) | macOS arm64 | 13720 | bytes |
 
 ## Results
 
@@ -30,16 +30,17 @@
 - `wasm-pack test --headless --chrome crates/engine` exits 0 but runs no wasm test. Output: "This test suite is only configured to run in node.js, but we're only running browser tests so skipping." Running in a browser needs `wasm_bindgen_test_configure!(run_in_browser);` in the crate, which would stop `--node` from running the test. Node is the engine test target; the browser path is covered by the Playwright spike pages.
 - `pnpm spike:build` emits `packages/spike/dist/pages/{jpeg-worker,pdf,save}/index.html`.
 - `pnpm spike:test` passes 9 of 9 (3 stub pages on Chromium, Firefox, WebKit).
+- `writeMeasurement(name, data)` appends one JSON object per line to `packages/spike/test-results/<name>.json` (JSON Lines: split on newlines, parse each line). Playwright writes its own artifacts to `packages/spike/playwright-artifacts/`, which it empties on every run; `test-results/` is left alone, so measurements from earlier runs stay.
 - Playwright's `webServer` readiness check needs a 2xx page, so it polls `/pages/pdf/index.html`: the preview server answers 404 at `/`.
 
 ## Human steps
 
-Windows 10 (PowerShell), recording the version lines and wall times in the table above under browser "n/a", file "-", setting "Windows 10":
+Windows 10 (PowerShell). Add a "Windows 10" column to the Versions table for the version lines, and one Measurements row per wall time or size with browser "n/a", file naming what was measured, setting "Windows 10":
 
 1. `winget install Rustlang.Rustup`, then in a new shell: `rustup default stable` and `rustup target add wasm32-unknown-unknown`.
 2. `Measure-Command { cargo install wasm-pack }`: record `TotalSeconds`. Needs the MSVC build tools (`winget install Microsoft.VisualStudio.2022.BuildTools`, workload "Desktop development with C++") if the linker is missing.
 3. `rustc --version; cargo --version; wasm-pack --version; node -v; pnpm -v`.
-4. `pnpm install; pnpm build:engine; pnpm test:engine`: record pass or the exact error.
-5. `pnpm --filter spike exec playwright install chromium firefox webkit; pnpm spike:test`: record pass or failures per project.
+4. `pnpm install; pnpm build:engine; pnpm test:engine`: record pass or the exact error as a Results bullet.
+5. `pnpm --filter spike exec playwright install chromium firefox webkit; pnpm spike:test`: record pass or the failures per project as a Results bullet.
 
 verdict: go

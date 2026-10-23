@@ -12,6 +12,7 @@ dist/
 coverage/
 test-results/
 playwright-report/
+playwright-artifacts/
 
 # Vercel
 .vercel/
